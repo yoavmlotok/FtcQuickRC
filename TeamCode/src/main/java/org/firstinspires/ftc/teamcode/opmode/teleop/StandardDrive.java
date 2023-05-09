@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.util.Hardware;
 
-@TeleOp(name = "P.O.V Tank Drive", group = "tank")
-public class PovTankDrive extends OpMode {
+@TeleOp(name = "Standard Drive", group = "tank")
+public class StandardDrive extends OpMode {
     private final Hardware hardware = new Hardware();
 
     @Override
