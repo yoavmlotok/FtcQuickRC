@@ -9,9 +9,9 @@ public class StandardDrive {
         this.hardware = hardware;
     }
 
-    public void drive(double forward, double clockwise) {
-        double leftPower  = forward + clockwise;
-        double rightPower = forward - clockwise;
+    public void drive(double forwardPower, double clockwisePower) {
+        double leftPower  = forwardPower + clockwisePower;
+        double rightPower = forwardPower - clockwisePower;
 
         double max = Math.max(Math.abs(leftPower), Math.abs(rightPower));
         if (max > 1) {
