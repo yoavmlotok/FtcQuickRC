@@ -24,11 +24,12 @@ public class Hardware {
         wheels = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
         for (DcMotorEx motor : wheels) {
+            // TODO: If motor encoders are connected change runmode to RUN_USING_ENCODER
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-        // TODO: Change motor direction according to your own robot
+        // TODO: Change motor directions according to your own robot
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
