@@ -9,6 +9,12 @@ import org.firstinspires.ftc.teamcode.util.Hardware;
 public class FoMecanumDrive {
     private Hardware hardware;
 
+    private double powerMultiplier;
+
+    public FoMecanumDrive() {
+        setPowerMultiplier(1);
+    }
+
     public void initialize(Hardware hardware) {
         this.hardware = hardware;
     }
@@ -41,10 +47,10 @@ public class FoMecanumDrive {
             rightFrontPower /= max;
         }
 
-        hardware.leftFront.setPower(leftFrontPower);
-        hardware.leftRear.setPower(leftRearPower);
-        hardware.rightFront.setPower(rightFrontPower);
-        hardware.rightRear.setPower(rightRearPower);
+        hardware.leftFront.setPower(leftFrontPower * powerMultiplier);
+        hardware.leftRear.setPower(leftRearPower * powerMultiplier);
+        hardware.rightFront.setPower(rightFrontPower * powerMultiplier);
+        hardware.rightRear.setPower(rightRearPower * powerMultiplier);
     }
 
     private double robotAngle() {
@@ -61,5 +67,9 @@ public class FoMecanumDrive {
             angle -= 2*Math.PI;
         }
         return angle;
+    }
+
+    public void setPowerMultiplier(double powerMultiplier) {
+        this.powerMultiplier = powerMultiplier;
     }
 }

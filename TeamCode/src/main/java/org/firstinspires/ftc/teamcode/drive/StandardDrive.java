@@ -5,6 +5,12 @@ import org.firstinspires.ftc.teamcode.util.Hardware;
 public class StandardDrive {
     private Hardware hardware;
 
+    private double powerMultiplier;
+
+    public StandardDrive() {
+        setPowerMultiplier(1);
+    }
+
     public void initialize(Hardware hardware) {
         this.hardware = hardware;
     }
@@ -19,9 +25,13 @@ public class StandardDrive {
             rightPower /= max;
         }
 
-        hardware.leftFront.setPower(leftPower);
-        hardware.leftRear.setPower(leftPower);
-        hardware.rightFront.setPower(rightPower);
-        hardware.rightRear.setPower(rightPower);
+        hardware.leftFront.setPower(leftPower * powerMultiplier);
+        hardware.leftRear.setPower(leftPower * powerMultiplier);
+        hardware.rightFront.setPower(rightPower * powerMultiplier);
+        hardware.rightRear.setPower(rightPower * powerMultiplier);
+    }
+
+    public void setPowerMultiplier(double powerMultiplier) {
+        this.powerMultiplier = powerMultiplier;
     }
 }
