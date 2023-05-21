@@ -9,12 +9,22 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Hardware {
+    private HardwareMap hardwareMap;
+
     public DcMotorEx leftFront, leftRear, rightFront, rightRear;
     public List<DcMotorEx> wheels;
 
     public IMU imu;
 
     public void initialize(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
+
+        initializeDriveTrain();
+
+        initializeImu();
+    }
+
+    private void initializeDriveTrain() {
         leftFront  = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear   = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
@@ -32,7 +42,9 @@ public class Hardware {
         leftRear.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         rightRear.setDirection(DcMotorEx.Direction.REVERSE);
+    }
 
+    private void initializeImu() {
         imu = hardwareMap.get(IMU.class, "imu");
 
         // TODO: Change imuOrientation to match the imu orientation on your robot
