@@ -31,6 +31,15 @@ public class DriveTryout extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            telemetry.addLine(
+                    "Use The D-Pad and B Button to navigate" +
+                            "\nPress UP to try field oriented mecanum drive" +
+                            "\nPress RIGHT to try point of view mecanum drive" +
+                            "\nPress LEFT to try standard drive" +
+                            "\nPress DOWN to try tank drive"
+            );
+            telemetry.update();
+
             if (gamepad1.dpad_up) {
                 runFoMecanumDrive();
             }
@@ -48,6 +57,16 @@ public class DriveTryout extends LinearOpMode {
 
     private void runFoMecanumDrive() {
         while (opModeIsActive()) {
+            telemetry.addLine(
+                    "Forwards and Backwards: left stick y" +
+                            "\nRight and left: left stick x" +
+                            "\nTurn: right stick x \n" +
+                            "\nNote that the controls are based on the robot's orientation upon startup" +
+                            "\nIt is recommended to start the robot facing the desired forward \n" +
+                            "\nPress B to return and try other drives"
+            );
+            telemetry.update();
+
             foMecanumDrive.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             if (gamepad1.b) {
@@ -61,6 +80,14 @@ public class DriveTryout extends LinearOpMode {
 
     private void runPovMecanumDrive() {
         while (opModeIsActive()) {
+            telemetry.addLine(
+                    "Forwards and backwards: left stick y" +
+                            "\nRight and left: left stick x" +
+                            "\nTurn: right stick x \n" +
+                            "\nPress B to return and try other drives"
+            );
+            telemetry.update();
+
             povMecanumDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             if (gamepad1.b) {
@@ -74,6 +101,12 @@ public class DriveTryout extends LinearOpMode {
 
     private void runStandardDrive() {
         while (opModeIsActive()) {
+            telemetry.addLine(
+                    "Forwards and backwards: left stick y" +
+                            "\nTurn: right stick x \n" +
+                            "\nPress B to return and try other drives"
+            );
+
             standardDrive.drive(-gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             if (gamepad1.b) {
@@ -87,6 +120,12 @@ public class DriveTryout extends LinearOpMode {
 
     private void runTankDrive() {
         while (opModeIsActive()) {
+            telemetry.addLine(
+                    "Left Side Power: left stick y" +
+                            "\nRight Side Power: right stick y \n" +
+                            "\nPress B to return and try other drives"
+            );
+
             tankDrive.drive(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
 
             if (gamepad1.b) {
