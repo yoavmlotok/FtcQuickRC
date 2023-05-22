@@ -32,8 +32,7 @@ public class DriveTryout extends LinearOpMode {
 
         while (opModeIsActive()) {
             telemetry.addLine(
-                    "Use The D-Pad and B Button to navigate" +
-                            "\nPress UP to try field oriented mecanum drive" +
+                            "Press UP to try field oriented mecanum drive" +
                             "\nPress RIGHT to try point of view mecanum drive" +
                             "\nPress LEFT to try standard drive" +
                             "\nPress DOWN to try tank drive"
