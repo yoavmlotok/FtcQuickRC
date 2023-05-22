@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.util.Hardware;
 
 public class FoMecanumDrive {
+    private final static double initialRobotAngle = 0;
+
     private Hardware hardware;
 
     private double powerMultiplier;
@@ -22,7 +21,7 @@ public class FoMecanumDrive {
     public void drive(double xPower, double yPower, double clockwisePower) {
         double distance = Math.hypot(xPower, yPower);
         double absoluteAngle = Math.atan2(xPower, yPower);
-        double relativeAngle = angleWrap(absoluteAngle - (Math.toRadians(-robotAngle())));
+        double relativeAngle = angleWrap(absoluteAngle - (Math.toRadians(-robotAngle() - initialRobotAngle)));
 
         double relativeX = Math.cos(relativeAngle) * distance;
         double relativeY = Math.sin(relativeAngle) * distance;
@@ -54,9 +53,7 @@ public class FoMecanumDrive {
     }
 
     private double robotAngle() {
-        Orientation angles = hardware.imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        return (AngleUnit.DEGREES.fromUnit(angles.angleUnit,angles.firstAngle));
+        return hardware.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
     }
 
     private double angleWrap(double angle){
