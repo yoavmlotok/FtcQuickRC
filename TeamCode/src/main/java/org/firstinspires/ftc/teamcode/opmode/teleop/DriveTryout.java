@@ -106,6 +106,7 @@ public class DriveTryout extends LinearOpMode {
                             "\nTurn: right stick x \n" +
                             "\nPress B to return and try other drives"
             );
+            telemetry.update();
 
             standardDrive.drive(-gamepad1.left_stick_y, gamepad1.right_stick_x);
 
@@ -125,6 +126,7 @@ public class DriveTryout extends LinearOpMode {
                             "\nRight Side Power: right stick y \n" +
                             "\nPress B to return and try other drives"
             );
+            telemetry.update();
 
             tankDrive.drive(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
 
