@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
@@ -34,8 +32,8 @@ public class Hardware {
         wheels = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
         for (DcMotorEx motor : wheels) {
+            motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             // TODO: If motor encoders are connected change runmode to RUN_USING_ENCODER
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         }
