@@ -22,7 +22,7 @@ public class FoMecanumDrive {
     public void drive(double xPower, double yPower, double clockwisePower) {
         double distance = Math.hypot(xPower, yPower);
         double absoluteAngle = Math.atan2(xPower, yPower);
-        double relativeAngle = angleWrap(absoluteAngle - (Math.toRadians(robotAngle())));
+        double relativeAngle = angleWrap(absoluteAngle - (Math.toRadians(-robotAngle())));
 
         double relativeX = Math.cos(relativeAngle) * distance;
         double relativeY = Math.sin(relativeAngle) * distance;
