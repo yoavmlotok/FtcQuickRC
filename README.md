@@ -1,5 +1,5 @@
 ## BEFORE USING
-FtcQuickRC makes use of FTCLib, for more information about FTCLib visit https://docs.ftclib.org/ftclib/
+FtcQuickRC makes use of FTCLib. If you are not familiar with FTCLib please visit https://docs.ftclib.org/ftclib/ for more information
 
 ## NOTICE
 
