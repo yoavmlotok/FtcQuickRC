@@ -1,32 +1,32 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.arcrobotics.ftclib.drivebase.DifferentialDrive;
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.drive.FoMecanumDrive;
-import org.firstinspires.ftc.teamcode.drive.PovMecanumDrive;
-import org.firstinspires.ftc.teamcode.drive.StandardDrive;
-import org.firstinspires.ftc.teamcode.drive.TankDrive;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.util.Hardware;
 
 @TeleOp(name = "Drive Tryout", group = "tryout")
 public class DriveTryout extends LinearOpMode {
     private final Hardware hardware = new Hardware();
 
-    private final FoMecanumDrive foMecanumDrive = new FoMecanumDrive();
-    private final PovMecanumDrive povMecanumDrive = new PovMecanumDrive();
-    private final StandardDrive standardDrive = new StandardDrive();
-    private final TankDrive tankDrive = new TankDrive();
+    private GamepadEx driverPad;
+
+    private MecanumDrive mecanumDrive;
+    private DifferentialDrive differentialDrive;
 
     @Override
     public void runOpMode() {
         hardware.initialize(hardwareMap);
 
-        foMecanumDrive.initialize(hardware);
-        povMecanumDrive.initialize(hardware);
-        standardDrive.initialize(hardware);
-        tankDrive.initialize(hardware);
+        driverPad = new GamepadEx(gamepad1);
+
+        mecanumDrive      = new MecanumDrive(hardware.leftFront, hardware.rightFront, hardware.leftRear, hardware.rightRear);
+        differentialDrive = new DifferentialDrive(hardware.leftFront, hardware.rightFront, hardware.leftRear, hardware.rightRear);
 
         waitForStart();
 
@@ -66,11 +66,11 @@ public class DriveTryout extends LinearOpMode {
             );
             telemetry.update();
 
-            foMecanumDrive.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+            mecanumDrive.driveFieldCentric(driverPad.getLeftX(), driverPad.getLeftY(), driverPad.getRightX(), hardware.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
             if (gamepad1.b) {
-                for (DcMotorEx motor : hardware.wheels) {
-                    motor.setPower(0);
+                for (MotorEx motor : hardware.wheels) {
+                    motor.stopMotor();
                 }
                 break;
             }
@@ -87,11 +87,11 @@ public class DriveTryout extends LinearOpMode {
             );
             telemetry.update();
 
-            povMecanumDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            mecanumDrive.driveRobotCentric(driverPad.getLeftX(), driverPad.getLeftY(), driverPad.getRightX());
 
             if (gamepad1.b) {
-                for (DcMotorEx motor : hardware.wheels) {
-                    motor.setPower(0);
+                for (MotorEx motor : hardware.wheels) {
+                    motor.stopMotor();
                 }
                 break;
             }
@@ -107,11 +107,11 @@ public class DriveTryout extends LinearOpMode {
             );
             telemetry.update();
 
-            standardDrive.drive(-gamepad1.left_stick_y, gamepad1.right_stick_x);
+            differentialDrive.arcadeDrive(driverPad.getLeftY(), driverPad.getRightX());
 
             if (gamepad1.b) {
-                for (DcMotorEx motor : hardware.wheels) {
-                    motor.setPower(0);
+                for (MotorEx motor : hardware.wheels) {
+                    motor.stopMotor();
                 }
                 break;
             }
@@ -127,11 +127,11 @@ public class DriveTryout extends LinearOpMode {
             );
             telemetry.update();
 
-            tankDrive.drive(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
+            differentialDrive.tankDrive(driverPad.getLeftY(), driverPad.getRightY());
 
             if (gamepad1.b) {
-                for (DcMotorEx motor : hardware.wheels) {
-                    motor.setPower(0);
+                for (MotorEx motor : hardware.wheels) {
+                    motor.stopMotor();
                 }
                 break;
             }

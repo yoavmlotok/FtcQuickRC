@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
@@ -11,8 +11,8 @@ import java.util.List;
 public class Hardware {
     private HardwareMap hardwareMap;
 
-    public DcMotorEx leftFront, leftRear, rightFront, rightRear;
-    public List<DcMotorEx> wheels;
+    public MotorEx leftFront, rightFront, leftRear, rightRear;
+    public List<MotorEx> wheels;
 
     public IMU imu;
 
@@ -25,24 +25,23 @@ public class Hardware {
     }
 
     private void initializeDriveTrain() {
-        leftFront  = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear   = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        rightRear  = hardwareMap.get(DcMotorEx.class, "rightRear");
-        wheels = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
+        leftFront  = new MotorEx(hardwareMap, "leftFront");
+        rightFront = new MotorEx(hardwareMap, "rightFront");
+        leftRear   = new MotorEx(hardwareMap, "leftRear");
+        rightRear  = new MotorEx(hardwareMap, "rightRear");
+        wheels = Arrays.asList(leftFront, rightFront, leftRear, rightRear);
 
-        for (DcMotorEx motor : wheels) {
-            motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            // TODO: If motor encoders are connected change runmode to RUN_USING_ENCODER
-            motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-            motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        for (MotorEx motor : wheels) {
+            motor.stopAndResetEncoder();
+            motor.setRunMode(MotorEx.RunMode.RawPower);
+            motor.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
         }
 
-        // TODO: Change motor directions according to your own robot
-        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
-        leftRear.setDirection(DcMotorEx.Direction.FORWARD);
-        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
-        rightRear.setDirection(DcMotorEx.Direction.REVERSE);
+        // TODO: Reverse the motors according to your own robot
+        leftFront.setInverted(false);
+        leftRear.setInverted(false);
+        rightFront.setInverted(true);
+        rightRear.setInverted(true);
     }
 
     private void initializeImu() {
