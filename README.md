@@ -1,3 +1,6 @@
+## BEFORE USING
+FtcQuickRC makes use of FTCLib, for more information about FTCLib visit https://docs.ftclib.org/ftclib/
+
 ## NOTICE
 
 This repository contains the public FTC SDK for the POWERPLAY (2022-2023) competition season.
