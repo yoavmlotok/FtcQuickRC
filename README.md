@@ -1,5 +1,10 @@
 ## BEFORE USING
-FtcQuickRC makes use of FTCLib. If you are not familiar with FTCLib please visit https://docs.ftclib.org/ftclib/ for more information
+FtcQuickRC makes use of FTCLib and FTC Dashboard, these are very useful for all kinds of purposes.
+
+If you are not familiar with FTCLib please visit https://docs.ftclib.org/ftclib/ for more information.
+If you are not familiar with FTC Dashboard please visit https://acmerobotics.github.io/ftc-dashboard/ for more information.
+
+Please note that FTC Dashboard is not legal during competition, visit https://acmerobotics.github.io/ftc-dashboard/competition/ to understand more.
 
 ## NOTICE
 

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.drivebase.DifferentialDrive;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -12,6 +14,8 @@ import org.firstinspires.ftc.teamcode.util.Hardware;
 
 @TeleOp(name = "Drive Tryout", group = "tryout")
 public class DriveTryout extends LinearOpMode {
+    private MultipleTelemetry multipleTelemetry;
+
     private final Hardware hardware = new Hardware();
 
     private GamepadEx driverPad;
@@ -21,6 +25,8 @@ public class DriveTryout extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        multipleTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+
         hardware.initialize(hardwareMap);
 
         driverPad = new GamepadEx(gamepad1);
@@ -31,13 +37,13 @@ public class DriveTryout extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addLine(
+            multipleTelemetry.addLine(
                             "Press UP to try field oriented mecanum drive" +
                             "\nPress RIGHT to try point of view mecanum drive" +
                             "\nPress LEFT to try standard drive" +
                             "\nPress DOWN to try tank drive"
             );
-            telemetry.update();
+            multipleTelemetry.update();
 
             if (gamepad1.dpad_up) {
                 runFoMecanumDrive();
@@ -56,7 +62,7 @@ public class DriveTryout extends LinearOpMode {
 
     private void runFoMecanumDrive() {
         while (opModeIsActive()) {
-            telemetry.addLine(
+            multipleTelemetry.addLine(
                     "Forwards and Backwards: left stick y" +
                             "\nRight and left: left stick x" +
                             "\nTurn: right stick x \n" +
@@ -64,7 +70,7 @@ public class DriveTryout extends LinearOpMode {
                             "\nIt is recommended to start the robot facing the desired forward \n" +
                             "\nPress B to return and try other drives"
             );
-            telemetry.update();
+            multipleTelemetry.update();
 
             mecanumDrive.driveFieldCentric(driverPad.getLeftX(), driverPad.getLeftY(), driverPad.getRightX(), hardware.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
@@ -79,13 +85,13 @@ public class DriveTryout extends LinearOpMode {
 
     private void runPovMecanumDrive() {
         while (opModeIsActive()) {
-            telemetry.addLine(
+            multipleTelemetry.addLine(
                     "Forwards and backwards: left stick y" +
                             "\nRight and left: left stick x" +
                             "\nTurn: right stick x \n" +
                             "\nPress B to return and try other drives"
             );
-            telemetry.update();
+            multipleTelemetry.update();
 
             mecanumDrive.driveRobotCentric(driverPad.getLeftX(), driverPad.getLeftY(), driverPad.getRightX());
 
@@ -100,12 +106,12 @@ public class DriveTryout extends LinearOpMode {
 
     private void runStandardDrive() {
         while (opModeIsActive()) {
-            telemetry.addLine(
+            multipleTelemetry.addLine(
                     "Forwards and backwards: left stick y" +
                             "\nTurn: right stick x \n" +
                             "\nPress B to return and try other drives"
             );
-            telemetry.update();
+            multipleTelemetry.update();
 
             differentialDrive.arcadeDrive(driverPad.getLeftY(), driverPad.getRightX());
 
@@ -120,12 +126,12 @@ public class DriveTryout extends LinearOpMode {
 
     private void runTankDrive() {
         while (opModeIsActive()) {
-            telemetry.addLine(
+            multipleTelemetry.addLine(
                     "Left Side Power: left stick y" +
                             "\nRight Side Power: right stick y \n" +
                             "\nPress B to return and try other drives"
             );
-            telemetry.update();
+            multipleTelemetry.update();
 
             differentialDrive.tankDrive(driverPad.getLeftY(), driverPad.getRightY());
 
